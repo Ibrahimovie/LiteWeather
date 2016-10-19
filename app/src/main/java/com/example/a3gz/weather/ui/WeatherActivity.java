@@ -93,7 +93,7 @@ public class WeatherActivity extends Activity {
             //然后从服务器更新一次
             updateWeatherFromServer();
         }
-        //启动自动更新服务（不过我这里没怎么使用到自动更新，我这里都是打开后实时更新的，可以打开后不从服务器更新，只从本地获取）
+        //启动自动更新服务
         Intent intent = new Intent(this, AutoUpdateService.class);
         startService(intent);
 
@@ -130,7 +130,7 @@ public class WeatherActivity extends Activity {
 
     }
 
-    //从服务器更新数据（CityChooseActivity中有相似方法）
+    //从服务器更新数据
     private void updateWeatherFromServer() {
         String address = "https://api.heweather.com/x3/weather?cityid=" + mCity_current.getCity_code() + "&key=" + WeatherActivity.WEATHER_KEY;
         showProgressDialog();
