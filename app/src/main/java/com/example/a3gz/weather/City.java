@@ -1,4 +1,4 @@
-package com.example.a3gz.weather.module;
+package com.example.a3gz.weather;
 
 /**
  * Created by 3gz on 2016/10/18.
@@ -6,17 +6,17 @@ package com.example.a3gz.weather.module;
 
 public class City {
 
-    private int Id;
+    private int id;
     private String city_name_en;
     private String city_name_ch;
     private String city_code;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getCity_name_en() {

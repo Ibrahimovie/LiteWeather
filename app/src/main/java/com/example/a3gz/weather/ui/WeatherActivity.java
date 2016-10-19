@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.a3gz.weather.module.City;
+import com.example.a3gz.weather.City;
 import com.example.a3gz.weather.R;
 import com.example.a3gz.weather.service.AutoUpdateService;
 import com.example.a3gz.weather.utils.HttpCallback;
@@ -47,8 +47,6 @@ public class WeatherActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //有米广告管理器实例
-        //AdManager.getInstance(this).init("8c8f79aef6457ac0", "d71c14f920b0e968", false);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.weather_layout);
 
@@ -99,12 +97,6 @@ public class WeatherActivity extends Activity {
         Intent intent = new Intent(this, AutoUpdateService.class);
         startService(intent);
 
-        //有米广告栏，不多做解释，第一行代码里面解释很清楚，也很简单
-        /**
-        AdView adView = new AdView(this, AdSize.FIT_SCREEN);
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.adLayout);
-        linearLayout.addView(adView);
-         */
     }
 
 

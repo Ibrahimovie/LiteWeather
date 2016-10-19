@@ -3,7 +3,7 @@ package com.example.a3gz.weather.utils;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.example.a3gz.weather.module.City;
+import com.example.a3gz.weather.City;
 import com.example.a3gz.weather.db.WeatherDB;
 
 import org.json.JSONArray;
@@ -43,18 +43,16 @@ public class Utility {
         return false;
     }
 
-    //处理从服务器返回的天气信息（可以自己注册和风天气查看具体的数据）
-    //这里的数据是JSON，而且返回的JSON数据相对比较复杂
-    //在util包下面有一个北京市天气数据的样例
-    //这个JSON里面包含了非常多的天气相关的数据，但我们这里只获取基础信息就行了，有兴趣的可以继续扩展
+    //处理从服务器返回的天气信息
+    //数据是JSON,存储到sharedpreferences文件中
     public synchronized static boolean handleWeatherResponse(SharedPreferences.Editor editor, String response) {
         if (!TextUtils.isEmpty(response)) {
             try {
                 //先把JSON数据加载成数组，因为根部HeWeather data service 3.0后面是[符号，说明是以数组形式存放，只是这个数组里面只有一个元素
                 JSONArray jsonArray = new JSONObject(response).getJSONArray("HeWeather data service 3.0");
-                //那么既然知道这个数组里面只有一个元素，所以我们直接取出第一个元素为JSONObject
+                //这个数组里面只有一个元素，直接取出第一个元素为JSONObject
                 JSONObject weather_info_all = jsonArray.getJSONObject(0);
-                //首先，我们看到，城市名称和数据更新的时间是在basic下面，所以可以直接获取
+                //城市名称和数据更新的时间是在basic下面，直接获取
                 JSONObject weather_info_basic = weather_info_all.getJSONObject("basic");
                 /*"basic": {
                     "city": "北京",
@@ -69,19 +67,19 @@ public class Utility {
                     }
                 },*/
 
-                //我们发现，有city和update，其中，city可以直接通过名称获取到信息
+                //有city和update，city可以直接通过名称获取到信息
                 editor.putString("city_name_ch", weather_info_basic.getString("city"));
                 editor.putString("city_code", weather_info_basic.getString("id"));
-                //但是，更新的时间是不能获取的，因为这里update后面是｛｝，表明这是一个对象
-                //所以先根据名称获取这个对象
+                //更新的时间是不能获取的，因为update后面是｛｝，表明这是一个对象
+                //先根据名称获取这个对象
                 JSONObject weather_info_basic_update = weather_info_basic.getJSONObject("update");
                 //然后再根据这个对象获取名称是loc的数据信息
                 editor.putString("update_time", weather_info_basic_update.getString("loc"));
 
-                //关于天气的所有信息都是在daily_forecast名称下面，仔细查看，发现，daily_forecast后面是[符号，说明，这也是一个JSON数组
+                //关于天气的所有信息都是在daily_forecast名称下面，daily_forecast后面是[符号，说明这也是一个JSON数组
                 //所以先根据名称获取JSONArray对象
                 JSONArray weather_info_daily_forecast = weather_info_all.getJSONArray("daily_forecast");
-                //我们发现，[]里面是由很多个像下面这样的元素组成的
+                //[]里面是由很多个像下面这样的元素组成的
                 /*
                 {
                     "astro": {
@@ -113,11 +111,11 @@ public class Utility {
                 },
                 */
 
-                //第一个元素是当前的日期相关的天气数据，目前我们只需要第一个，并且获取出来的是一个JSONObject
+                //第一个元素是当前的日期相关的天气数据，获取出来的是一个JSONObject
                 JSONObject weather_info_now_forecast = weather_info_daily_forecast.getJSONObject(0);
-                //你会发现，date是可以直接获取的，因为date后面是没有｛｝的
+                //date是可以直接获取的，因为date后面是没有｛｝的
                 editor.putString("data_now", weather_info_now_forecast.getString("date"));//当前日期
-                //tmp节点是当前的温度，包含最低和最高，说明这是一个JSONObject
+                //tmp节点是当前的温度，包含最低和最高,这是一个JSONObject
                 JSONObject weather_info_now_forecast_tmp = weather_info_now_forecast.getJSONObject("tmp");
                 editor.putString("tmp_min", weather_info_now_forecast_tmp.getString("min"));
                 editor.putString("tmp_max", weather_info_now_forecast_tmp.getString("max"));

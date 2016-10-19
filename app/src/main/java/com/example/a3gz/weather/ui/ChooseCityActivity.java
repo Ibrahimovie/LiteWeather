@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.a3gz.weather.module.City;
+import com.example.a3gz.weather.City;
 import com.example.a3gz.weather.R;
 import com.example.a3gz.weather.db.WeatherDB;
 import com.example.a3gz.weather.utils.HttpCallback;
@@ -178,17 +178,13 @@ public class ChooseCityActivity extends Activity {
 
     //显示进度条
     private void showProgressDialog() {
-
         if (mProgressDialog == null) {
-            if (mProgressDialog == null) {
-
-                mProgressDialog = new ProgressDialog(this);
-                mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                mProgressDialog.setMessage("正在同步数据...");
-                mProgressDialog.setCanceledOnTouchOutside(false);
-            }
-            mProgressDialog.show();
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mProgressDialog.setMessage("正在同步数据...");
+            mProgressDialog.setCanceledOnTouchOutside(false);
         }
+        mProgressDialog.show();
     }
 
     //关闭进度条

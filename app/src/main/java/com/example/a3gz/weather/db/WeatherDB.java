@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.a3gz.weather.module.City;
+import com.example.a3gz.weather.City;
 
 import java.util.ArrayList;
 import java.util.List;

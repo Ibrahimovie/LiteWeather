@@ -23,10 +23,9 @@ public class WeatherOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_CITY);
+        db.execSQL(CREATE_CITY);//执行建表语句
         db.execSQL(DATA_STATE);
         db.execSQL(INSERT_DATA_STATE);
-
     }
 
     @Override
