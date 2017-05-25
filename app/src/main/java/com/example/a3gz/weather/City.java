@@ -11,6 +11,7 @@ public class City {
     private String city_name_ch;
     private String city_code;
 
+
     public int getId() {
         return id;
     }
@@ -42,6 +43,8 @@ public class City {
     public void setCity_code(String city_code) {
         this.city_code = city_code;
     }
+
+
 }
 
 

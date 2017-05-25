@@ -68,7 +68,6 @@ public class WeatherDB {
 
     //根据名称获取某一个或多个匹配的城市
     public List<City> loadCitiesByName(String name) {
-
         List<City> cities = new ArrayList<>();
         Cursor cursor = db.query("CITY", null, "CITY_NAME_CH like ?", new String[]{name + "%"}, null, null, "CITY_CODE");
         while (cursor.moveToNext()) {
@@ -82,6 +81,21 @@ public class WeatherDB {
         if (cursor != null)
             cursor.close();
         return cities;
+    }
+
+    public City getCityByName(String name){
+        Cursor cursor=db.query("CITY",null, "CITY_NAME_CH like ?", new String[]{name + "%"}, null, null, "CITY_CODE");
+        City city=new City();
+        while(cursor.moveToNext()){
+            city.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            city.setCity_name_en(cursor.getString(cursor.getColumnIndex("CITY_NAME_EN")));
+            city.setCity_name_ch(cursor.getString(cursor.getColumnIndex("CITY_NAME_CH")));
+            city.setCity_code(cursor.getString(cursor.getColumnIndex("CITY_CODE")));
+        }
+        if (cursor != null)
+            cursor.close();
+        return city;
+
     }
 
     //检查是否是第一次安装 0-是 1-否

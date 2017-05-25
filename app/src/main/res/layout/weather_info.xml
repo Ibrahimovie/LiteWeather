@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/bg"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/info_city_name"
+        android:layout_marginTop="66dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="40sp"
+        android:textColor="@color/title_bar"
+        android:text="杭州"/>
+    <TextView
+        android:id="@+id/info_general_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        android:textStyle="bold"
+        android:textColor="@color/title_bar"
+        android:text="今天： 多云转晴 。最高气温26，最低气温13。空气状况很差"
+        />
+    <TextView
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:id="@+id/info_sr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_bar"
+        android:text="日出:   05:12"
+
+        />
+    <TextView
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        android:id="@+id/info_ss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_bar"
+        android:text="日落:   18:12"
+        android:layout_marginLeft="10dp"
+
+        />
+    <TextView
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        android:id="@+id/info_rain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_bar"
+        android:text="降水概率:   10%"
+        android:layout_marginLeft="10dp"
+
+        />
+    <TextView
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        android:id="@+id/info_wet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_bar"
+        android:text="相对湿度:   60%"
+        android:layout_marginLeft="10dp"
+
+        />
+    <TextView
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        android:id="@+id/info_wind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_bar"
+        android:layout_marginLeft="10dp"
+        android:text="风速:   南风 每秒7米"/>
+
+    <TextView
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        android:id="@+id/info_see"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_bar"
+        android:layout_marginLeft="10dp"
+        android:text="能见度：   14.5公里"/>
+    <TextView
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        android:id="@+id/info_rain_sum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_bar"
+        android:layout_marginLeft="10dp"
+        android:text="降水量：   0.0"/>
+    <TextView
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        android:id="@+id/info_press"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_bar"
+        android:text="气压：   1020百帕"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        android:id="@+id/info_purple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_bar"
+        android:layout_marginLeft="10dp"
+        android:text="紫外线指数：    紫外线强度较弱，建议出门前涂擦SPF在12-15之间、PA+的防晒护肤品。"/>
+    <TextView
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        android:id="@+id/info_outdoor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_bar"
+        android:text="出行指数：   天气较好，但丝毫不会影响您出行的心情。温度适宜又有微风相伴，适宜旅游。"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        android:id="@+id/info_sport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/title_bar"
+        android:text="运动指数：   天气较好，赶快投身大自然参与户外运动，尽情感受运动的快乐吧。"
+        android:layout_marginLeft="10dp"/>
+
+
+</LinearLayout>

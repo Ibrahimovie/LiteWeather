@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -45,10 +45,12 @@ public class ChooseCityActivity extends Activity {
     private SharedPreferences mSharedPreferences;//本地存储
     private SharedPreferences.Editor mEditor;//本地存储
 
+    protected static final String ACTIVITY_TAG="choosecityrequest";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.choose_city);
 
         weatherDB = WeatherDB.getInstance(this);//获取数据库处理对象
@@ -71,7 +73,6 @@ public class ChooseCityActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 mCities = queryCitiesFromLocal(s.toString());//每次文本变化就去本地数据库查询匹配的城市
                 mAdapter.notifyDataSetChanged();//通知更新
             }
@@ -81,7 +82,7 @@ public class ChooseCityActivity extends Activity {
             }
         });
 
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cityNames);//适配器初始化
+        mAdapter = new ArrayAdapter<>(this,R.layout.appearence, cityNames);//适配器初始化
         mListView = (ListView) findViewById(R.id.list_view_cities);
         mListView.setAdapter(mAdapter);
 
@@ -90,14 +91,27 @@ public class ChooseCityActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mCity_selected = mCities.get(position);//根据点击的位置获取对应的City对象
-                queryWeatherFromServer();//根据点击的城市从服务器获取天气数据
+                showProgressDialog();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        queryWeatherFromServer();//根据点击的城市从服务器获取天气数据
+                    }
+                }).start();
+
             }
         });
     }
 
     //从服务器取出所有的城市信息
     private void queryCitiesFromServer() {
-        String address = " https://api.heweather.com/x3/citylist?search=allchina&key=" + WeatherActivity.WEATHER_KEY;
+        String address = " https://api.heweather.com/x3/citylist?search=allchina&key="
+                + WeatherActivity.WEATHER_KEY;
         showProgressDialog();
 
         HttpUtil.sendHttpRequest(address, new HttpCallback() {
@@ -113,14 +127,14 @@ public class ChooseCityActivity extends Activity {
                     });
                 }
             }
-
             @Override
             public void onError(final Exception e) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         closeProgressDialog();
-                        Toast.makeText(ChooseCityActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();//把异常Toast显示出来
+                        Toast.makeText(ChooseCityActivity.this, e.getMessage(),
+                                Toast.LENGTH_SHORT).show();//把异常Toast显示出来
                     }
                 });
             }
@@ -140,8 +154,10 @@ public class ChooseCityActivity extends Activity {
     //从服务器获取天气数据
     private void queryWeatherFromServer() {
 
+
         String address = "https://api.heweather.com/x3/weather?cityid=" + mCity_selected.getCity_code() + "&key=" + WeatherActivity.WEATHER_KEY;
-        showProgressDialog();
+        Log.v(ACTIVITY_TAG,"address==========="+address);
+
 
         HttpUtil.sendHttpRequest(address, new HttpCallback() {
             @Override
@@ -181,7 +197,7 @@ public class ChooseCityActivity extends Activity {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            mProgressDialog.setMessage("正在同步数据...");
+            mProgressDialog.setMessage("loading...");
             mProgressDialog.setCanceledOnTouchOutside(false);
         }
         mProgressDialog.show();
